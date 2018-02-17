@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>News Paper Wala</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/full-width-pics.css" rel="stylesheet">
+
+  </head>
+
+  <body ng-app="myApp" , ng-controller="MyCtr1" class="container-fluid">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">News Paper Wala</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#home">Home
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#news">News</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#contact">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+<section id ="home">
+    <!-- Header - set the background image for the header in the line below -->
+    <header class="py-5 bg-image-full" style="background-image: url('newspaper_tn.jpg');">
+  
+        
+      <img class="img-fluid d-block mx-auto" src="21147300_1514075458682387_3584195155344752640_n.jpg" alt="">
+    </header>
+</section>
+
+    <!-- Content section -->
+    <section ng-class="py-5" id = "news">
+        <div > 
+        <form class="form-inline" style="padding: 10px;">
+              <div class="row">
+                 
+              <div class="col-sm-4">
+           <select ng-model="countryid" class="form-control">
+            <option value="">Country</option>
+            <option value="in">India</option>
+            <option value="cn">China</option>
+            <option value="us">United States</option>
+            <option value="jp">Japan</option>
+          </select> 
+              </div>
+              <div class="col-sm-4">
+            <select ng-model="cateid" class="form-control">
+            <option value="">Category</option>
+            <option value="business">Business</option>
+            <option value="entertainment">Entertainment</option>
+            <option value="sports">sports</option>
+            <option value="technology">Technology</option>
+          </select> 
+                   
+              </div>
+              <div class="col-sm-4">
+                      <button ng-click="getQ()" class="btn btn-primary">Get News</button>                          
+              </div>
+              </div>
+          </form>
+            </div>
+        <hr>
+        
+        <div class="card" ng-repeat="s1 in news">
+            <h1 align="center">{{s1.title}}</h1>       
+            <div align="center"> <image src="{{s1.urlToImage}}" height="300px" width="300px"></image> </div>           
+            <h4><span class="text-primary">{{s1.description}}</span></h4>
+
+            <p>For More Details:- <a href="{{s1.url}}">Click Here</a></p>
+            <p>Published At:- {{s1.publishedAt}}</p>
+            <p>-{{s1.author}}</p>
+                </div>
+    </section>
+
+<!--     Image Section - set the background image for the header in the line below 
+    <section class="py-5 bg-image-full" style="background-image: url('https://unsplash.it/1900/1080?image=1081');">
+       Put anything you want here! There is just a spacer below for demo purposes! 
+      <div style="height: 200px;"></div>
+    </section>-->
+
+
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white"></p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="angular.min.js"></script>
+ 
+  <script>
+      
+      var myApp = angular.module("myApp", []);
+      myApp.controller("MyCtr1", function ($scope, $http) {
+        $scope.countryid= 'in';
+        $scope.cateid='business';
+      $scope.getQ=function(){
+     var url = "https://newsapi.org/v2/top-headlines?country="+$scope.countryid+"&category="+$scope.cateid+"&apiKey=5895b1ec65804654abbe8a51de3fc47c";
+      $http.get(url).success(function (data) {
+            $scope.news = data.articles;
+        });}
+        });
+            </script>
+  </body>
+</html>
